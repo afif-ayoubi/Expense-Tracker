@@ -1,50 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expanse Tracker</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <link rel="stylesheet" href="styles/commons/utility.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/commons/utility.css" />
+  </head>
+  <body>
     <h1>Expense Tracker Dashboard</h1>
     <div class="input-section flex flex-row align-center space-between">
-        <label for="category-select">Categroy</label>
-        <select  id="category-select">
-            <option value="income">Income</option>
-            <option value="expanse">Expanses</option>
-        </select>
-        <label for="amount-input">Amount:</label>
-        <input type="number" id="amount-input">
-        <label for="date-input">Date:</label>
-        <input type="date" id="date-input">
-        <button id="add-btn">Add</button>
-
+      <label for="category-select">Categroy</label>
+      <select id="category-select">
+        <option value="income">Income</option>
+        <option value="expanse">Expanses</option>
+      </select>
+      <label for="amount-input">Amount:</label>
+      <input type="number" id="amount-input" />
+      <label for="date-input">Date:</label>
+      <input type="date" id="date-input" />
+      <button id="add-btn">Add</button>
     </div>
     <div class="expenses-list">
-        <h2>Expenses List</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="expenses-table-body">
-
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td>Total:</td>
-                    <td id="total-amount"></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
+      <h2>Expenses List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="expenses-table-body"></tbody>
+        <tfoot>
+          <tr>
+            <td>Total:</td>
+            <td id="total-amount"></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+      <script src="scripts/functions.js"></script>
+      <script src="scripts/index.js"></script>
     </div>
-</body>
+  </body>
 </html>
