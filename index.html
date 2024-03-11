@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Expanse Tracker</title>
+    <title>Expense Tracker</title>
     <link rel="stylesheet" href="styles/index.css" />
     <link rel="stylesheet" href="styles/commons/utility.css" />
   </head>
@@ -13,7 +13,7 @@
       <label for="category-select">Categroy</label>
       <select id="category-select">
         <option value="income">Income</option>
-        <option value="expanse">Expanses</option>
+        <option value="expense">Expense</option>
       </select>
       <label for="amount-input">Amount:</label>
       <input type="number" id="amount-input" />
@@ -22,6 +22,14 @@
       <button id="add-btn" onclick="addData()">Add</button>
       <button id="update-btn">Update</button>
     </div>
+    <div class="filter-section">
+        <select id="filter-select">
+          <option value="all">All</option>
+          <option value="income">Incomes</option>
+          <option value="expense">Expenses</option>
+        </select>
+        <button id="filter-btn">Filter</button>
+      </div>
     <div class="expenses-list">
       <h2>Expenses List</h2>
       <table>

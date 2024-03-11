@@ -6,7 +6,8 @@ const amountInput = document.getElementById("amount-input");
 const dateInput = document.getElementById("date-input");
 const addBtn = document.getElementById("add-btn");
 const updateBtn = document.getElementById("update-btn");
-
+const filterSelect = document.getElementById("filter-select");
+const filterBtn = document.getElementById("filter-btn");
 const expensesTableBody = document.getElementById("expnese-table-body");
 const totalAmountCell = document.getElementById("total-amount");
 
@@ -19,29 +20,22 @@ const addData = () => {
   console.log("Transaction:", transaction);
   if (validateTransaction(transaction)) {
     addTransaction(transaction);
-    if (transaction.type === "income") {
-        totalAmount += parseFloat(transaction.amount);
-      } else if (transaction.type === "expense") {
-        totalAmount -= parseFloat(transaction.amount);
-      }
-  
-      updateTransactionView(transaction);
-      resetForm();
-    }
-  }
+    updateTransactionView(transaction);
 
+    resetForm();
+  }
+};
 
 const deleData = (index) => {
-    const transactions = getTransactions();
-    if (index >= 0 && index < transactions.length) {
-      const transactionId = transactions[index].id;
-      deleteTransaction(transactionId);
-      updateTransactionView(); 
-    } else {
-      console.error('Invalid index:', index);
-    }
-  };
-  
+  const transactions = getTransactions();
+  if (index >= 0 && index < transactions.length) {
+    const transactionId = transactions[index].id;
+    deleteTransaction(transactionId);
+    updateTransactionView();
+  } else {
+    console.error("Invalid index:", index);
+  }
+};
 
 const editTransaction = (index) => {
   document.getElementById("add-btn").style.display = "none";
@@ -68,25 +62,36 @@ const editTransaction = (index) => {
       updateTransactionView();
       document.getElementById("add-btn").style.display = "block";
       document.getElementById("update-btn").style.display = "none";
-    }
-    else {
-        resetForm();
-        updateTransactionView();
-        document.getElementById("add-btn").style.display = "block";
-        document.getElementById("update-btn").style.display = "none";
+    } else {
+      resetForm();
+      updateTransactionView();
+      document.getElementById("add-btn").style.display = "block";
+      document.getElementById("update-btn").style.display = "none";
     }
   };
 };
-
+filterBtn.addEventListener("click", filterTransactions);
+function filterTransactions() {
+  updateTransactionView();
+}
 const updateTransactionView = () => {
   const transactions = getTransactions();
+  const filter = filterSelect.value;
+  console.log("Filter:", filter);
+  const filteredTransactions = filter === "all" 
+  ? transactions 
+  : filter === "income" 
+      ? transactions.filter(transaction => transaction.type === "income") 
+      : transactions.filter(transaction => transaction.type !== "income");
+
+
   const tableBody = document.querySelector("#expenses-table-body");
-  tableBody.innerHTML = generateTransactionHTML(transactions);
+  tableBody.innerHTML = generateTransactionHTML(filteredTransactions);
   totalAmount = 0;
-  transactions.forEach((transaction) => {
+  filteredTransactions.forEach((transaction) => {
     if (transaction.type === "income") {
       totalAmount += parseFloat(transaction.amount);
-    } else if (transaction.type === "expense") {
+    } else {
       totalAmount -= parseFloat(transaction.amount);
     }
   });
