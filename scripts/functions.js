@@ -1,8 +1,5 @@
-const getFromLocalStorage = (key) =>
-  JSON.parse(localStorage.getItem(key)) || [];
-
 const addToLocalStorage = (key, newData) => {
-  const existingData = getFromLocalStorage(key);
+  const existingData = JSON.parse(localStorage.getItem(key)) || [];
   const lastId =
     existingData.length > 0 ? existingData[existingData.length - 1].id : 0;
   newData.id = lastId + 1;
@@ -11,8 +8,11 @@ const addToLocalStorage = (key, newData) => {
   console.log("Auto-incremented ID:", newData.id);
 };
 
+const getFromLocalStorage = (key) =>
+  JSON.parse(localStorage.getItem(key)) || [];
+
 const deleteFromLocalStorage = (key, id) => {
-  const existingData = getFromLocalStorage(key);
+  const existingData = JSON.parse(localStorage.getItem(key)) || [];
   const updatedData = existingData.filter((item) => item.id !== id);
   localStorage.setItem(key, JSON.stringify(updatedData));
 };
@@ -26,14 +26,16 @@ const updateDataInLocalStorage = (key, id, updatedData) => {
   });
   localStorage.setItem(key, JSON.stringify(updatedItems));
 };
-const addUser = (transaction) => addToLocalStorage("transactions", transaction);
 
-const getUsers = () => getFromLocalStorage("transactions");
+const addTransaction = (transaction) =>
+  addToLocalStorage("transactions", transaction);
 
-const deleteUser = (transactionId) =>
+const getTransactions = () => getFromLocalStorage("transactions");
+
+const deleteTransaction = (transactionId) =>
   deleteFromLocalStorage("transactions", userId);
 
-const updateUser = (updatedTransaction) =>
+const updateTransaction = (updatedTransaction) =>
   updateDataInLocalStorage(
     "transactions",
     updatedTransaction.id,
