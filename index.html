@@ -19,6 +19,8 @@
       <input type="number" id="amount-input" />
       <label for="date-input">Date:</label>
       <input type="date" id="date-input" />
+      <label for="currency-select">Currency:</label>
+      <select id="currency-select"></select>
       <button id="add-btn" onclick="addData()">Add</button>
       <button id="update-btn">Update</button>
     </div>
@@ -51,8 +53,11 @@
           </tr>
         </tfoot>
       </table>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
       <script src="scripts/functions.js"></script>
       <script src="scripts/index.js"></script>
+      <script src="scripts/axios.js"></script>
     </div>
   </body>
 </html>

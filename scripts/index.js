@@ -16,6 +16,7 @@ const addData = () => {
     type: document.getElementById("category-select").value,
     amount: document.getElementById("amount-input").value,
     date: document.getElementById("date-input").value,
+    currency: document.getElementById("currency-select").value,
   };
   console.log("Transaction:", transaction);
   if (validateTransaction(transaction)) {
@@ -38,42 +39,46 @@ const deleData = (index) => {
 };
 
 const editTransaction = (index) => {
-  document.getElementById("add-btn").style.display = "none";
-  document.getElementById("update-btn").style.display = "block";
-
-  const transactions = getTransactions();
-  const currentTransaction = transactions[index];
-
-  document.getElementById("category-select").value = currentTransaction.type;
-  document.getElementById("amount-input").value = currentTransaction.amount;
-  document.getElementById("date-input").value = currentTransaction.date;
-
-  document.getElementById("update-btn").onclick = () => {
-    const updatedTransaction = {
-      id: currentTransaction.id,
-      type: document.getElementById("category-select").value,
-      amount: document.getElementById("amount-input").value,
-      date: document.getElementById("date-input").value,
+    document.getElementById("add-btn").style.display = "none";
+    document.getElementById("update-btn").style.display = "block";
+  
+    const transactions = getTransactions();
+    const currentTransaction = transactions[index];
+  
+    document.getElementById("category-select").value = currentTransaction.type;
+    document.getElementById("amount-input").value = currentTransaction.amount;
+    document.getElementById("date-input").value = currentTransaction.date;
+    document.getElementById("currency-select").value = currentTransaction.currency; // Set currency
+  
+    document.getElementById("update-btn").onclick = () => {
+      const updatedTransaction = {
+        id: currentTransaction.id,
+        type: document.getElementById("category-select").value,
+        amount: document.getElementById("amount-input").value,
+        date: document.getElementById("date-input").value,
+        currency: document.getElementById("currency-select").value, // Include currency
+      };
+  
+      if (validateTransaction(updatedTransaction)) {
+        updateTransaction(updatedTransaction);
+        resetForm();
+        updateTransactionView();
+        document.getElementById("add-btn").style.display = "block";
+        document.getElementById("update-btn").style.display = "none";
+      } else {
+        resetForm();
+        updateTransactionView();
+        document.getElementById("add-btn").style.display = "block";
+        document.getElementById("update-btn").style.display = "none";
+      }
     };
-
-    if (validateTransaction(updatedTransaction)) {
-      updateTransaction(updatedTransaction);
-      resetForm();
-      updateTransactionView();
-      document.getElementById("add-btn").style.display = "block";
-      document.getElementById("update-btn").style.display = "none";
-    } else {
-      resetForm();
-      updateTransactionView();
-      document.getElementById("add-btn").style.display = "block";
-      document.getElementById("update-btn").style.display = "none";
-    }
   };
-};
+  
+const filterTransactions=()=> {
+    updateTransactionView();
+  }
 filterBtn.addEventListener("click", filterTransactions);
-function filterTransactions() {
-  updateTransactionView();
-}
+
 const updateTransactionView = () => {
   const transactions = getTransactions();
   const filter = filterSelect.value;
@@ -82,7 +87,7 @@ const updateTransactionView = () => {
   ? transactions 
   : filter === "income" 
       ? transactions.filter(transaction => transaction.type === "income") 
-      : transactions.filter(transaction => transaction.type !== "income");
+      : transactions.filter(transaction => transaction.type !== "expense");
 
 
   const tableBody = document.querySelector("#expenses-table-body");
@@ -121,7 +126,7 @@ const generateTransactionHTML = (transactions) => {
     html += `
               <tr>
                   <td>${transaction.type}</td>
-                  <td>${transaction.amount}</td>
+                  <td>${transaction.amount} ${transaction.currency}</td>
                   <td>${transaction.date}</td>
                   <td>
                     <div class="button-container">
