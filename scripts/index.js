@@ -19,10 +19,17 @@ const addData = () => {
   console.log("Transaction:", transaction);
   if (validateTransaction(transaction)) {
     addTransaction(transaction);
-    updateTransactionView(transaction);
-    resetForm();
+    if (transaction.type === "income") {
+        totalAmount += parseFloat(transaction.amount);
+      } else if (transaction.type === "expense") {
+        totalAmount -= parseFloat(transaction.amount);
+      }
+  
+      updateTransactionView(transaction);
+      resetForm();
+    }
   }
-};
+
 
 const deleData = (index) => {
     const transactions = getTransactions();
@@ -75,6 +82,16 @@ const updateTransactionView = () => {
   const transactions = getTransactions();
   const tableBody = document.querySelector("#expenses-table-body");
   tableBody.innerHTML = generateTransactionHTML(transactions);
+  totalAmount = 0;
+  transactions.forEach((transaction) => {
+    if (transaction.type === "income") {
+      totalAmount += parseFloat(transaction.amount);
+    } else if (transaction.type === "expense") {
+      totalAmount -= parseFloat(transaction.amount);
+    }
+  });
+
+  totalAmountCell.textContent = totalAmount.toFixed(2);
 };
 
 const resetForm = () => {
