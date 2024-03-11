@@ -33,7 +33,7 @@ const addTransaction = (transaction) =>
 const getTransactions = () => getFromLocalStorage("transactions");
 
 const deleteTransaction = (transactionId) =>
-  deleteFromLocalStorage("transactions", userId);
+  deleteFromLocalStorage("transactions", transactionId);
 
 const updateTransaction = (updatedTransaction) =>
   updateDataInLocalStorage(

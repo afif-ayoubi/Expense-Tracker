@@ -24,11 +24,17 @@ const addData = () => {
   }
 };
 
-// const deleteTransaction = (index) => {
-//   const transactions = getTransactions();
-//   const transactionId = transactions[index].id;
-//   deleteTransaction(transactionId);
-// };
+const deleData = (index) => {
+    const transactions = getTransactions();
+    if (index >= 0 && index < transactions.length) {
+      const transactionId = transactions[index].id;
+      deleteTransaction(transactionId);
+      updateTransactionView(); 
+    } else {
+      console.error('Invalid index:', index);
+    }
+  };
+  
 
 // const editTransaction = (index) => {
 //   document.getElementById("add-btn").style.display = "none";
@@ -90,7 +96,7 @@ const generateTransactionHTML = (transactions) => {
                   <td>${transaction.date}</td>
                   <td>
                     <div class="button-container">
-                        <button onclick="deleteTransaction(${index})" class="delete-button">Delete</button>
+                        <button onclick="deleData(${index})" class="delete-button">Delete</button>
                         <button onclick="editTransaction(${index})" class="update-button">Edit</button>
                     </div>
                    </td>
@@ -99,3 +105,4 @@ const generateTransactionHTML = (transactions) => {
   });
   return html;
 };
+document.addEventListener("DOMContentLoaded", () => updateTransactionView());
