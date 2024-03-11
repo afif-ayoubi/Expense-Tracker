@@ -36,33 +36,40 @@ const deleData = (index) => {
   };
   
 
-// const editTransaction = (index) => {
-//   document.getElementById("add-btn").style.display = "none";
-//   document.getElementById("update-btn").style.display = "block";
+const editTransaction = (index) => {
+  document.getElementById("add-btn").style.display = "none";
+  document.getElementById("update-btn").style.display = "block";
 
-//   const transactions = getTransactions();
-//   const currentTransaction = transactions[index];
+  const transactions = getTransactions();
+  const currentTransaction = transactions[index];
 
-//   document.getElementById("category-select").value = currentTransaction.type;
-//   document.getElementById("amount-input").value = currentTransaction.amount;
-//   document.getElementById("date-input").value = currentTransaction.date;
+  document.getElementById("category-select").value = currentTransaction.type;
+  document.getElementById("amount-input").value = currentTransaction.amount;
+  document.getElementById("date-input").value = currentTransaction.date;
 
-//   document.getElementById("update-btn").onclick = () => {
-//     const updatedTransaction = {
-//       id: currentTransaction.id,
-//       type: document.getElementById("category-select").value,
-//       amount: document.getElementById("amount-input").value,
-//       date: document.getElementById("date-input").value,
-//     };
+  document.getElementById("update-btn").onclick = () => {
+    const updatedTransaction = {
+      id: currentTransaction.id,
+      type: document.getElementById("category-select").value,
+      amount: document.getElementById("amount-input").value,
+      date: document.getElementById("date-input").value,
+    };
 
-//     if (validateTransaction(updatedTransaction)) {
-//       updateTransactionInTable(updatedTransaction);
-//       resetForm();
-//       document.getElementById("add-btn").style.display = "block";
-//       document.getElementById("update-btn").style.display = "none";
-//     }
-//   };
-// };
+    if (validateTransaction(updatedTransaction)) {
+      updateTransaction(updatedTransaction);
+      resetForm();
+      updateTransactionView();
+      document.getElementById("add-btn").style.display = "block";
+      document.getElementById("update-btn").style.display = "none";
+    }
+    else {
+        resetForm();
+        updateTransactionView();
+        document.getElementById("add-btn").style.display = "block";
+        document.getElementById("update-btn").style.display = "none";
+    }
+  };
+};
 
 const updateTransactionView = () => {
   const transactions = getTransactions();

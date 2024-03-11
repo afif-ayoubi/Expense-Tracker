@@ -11,7 +11,8 @@ body {
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
   }
   
   .input-section label {
@@ -91,6 +92,7 @@ body {
     .input-section {
       flex-direction: column;
       margin: 10px;
+      align-items: normal;
     }
    
   }
